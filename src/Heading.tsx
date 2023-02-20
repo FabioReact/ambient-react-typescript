@@ -1,9 +1,9 @@
 type HeadingProps = {
 	level?: number|string
-	children: React.ReactNode
+	children?: React.ReactNode
 }
 
-const Heading = ({ level, children }: HeadingProps) => {
+const Heading = ({ level, children = "Titre par defaut" }: HeadingProps) => {
 	if (level == 2)
 		return <h2>{children}</h2>
 	if (level == 3)

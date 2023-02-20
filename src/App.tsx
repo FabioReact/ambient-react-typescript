@@ -1,14 +1,25 @@
-import styles from './App.module.css'
-import Heading from './Heading'
+import Heroes from './pages/Heroes'
+import Layout from './layout/Layout'
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom"
+import Home from './pages/Home'
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="heroes" element={<Heroes />} />
+    </Route>
+  )
+)
 
 function App() {
   return (
-    <>
-      <h1>React app</h1>
-      <h2 className={styles.red}>Still learning</h2>
-      <Heading>Still learning</Heading>
-      <Heading level={2}>With Fabio</Heading>
-    </>
+    <RouterProvider router={router} />
   )
 }
 
