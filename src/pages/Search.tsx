@@ -1,31 +1,17 @@
 import { useRef } from 'react'
-import { searchHeroesByName } from '../api/heroes'
 import HeroCard from '../components/HeroCard'
 import Loader from '../components/Loader'
+import SearchHeroesForm from '../components/SearchHeroesForm'
 import Heading from '../Heading'
 import { useSearchHeroes } from '../hooks/useSearchHeroes'
 
 const Search = () => {
-  const searchInputRef = useRef<HTMLInputElement>(null)
   const { loading, heroes, error, isError, searchHeroes } = useSearchHeroes()
-
-  const onSubmitHandler = (event: React.SyntheticEvent) => {
-    event.preventDefault()
-    // Optional chaining
-    const value = searchInputRef.current?.value
-    searchHeroes(value)
-  }
 
   return (
     <section>
       <Heading>Search</Heading>
-      <form onSubmit={onSubmitHandler}>
-        <fieldset>
-          <label htmlFor='search'>Search by name:</label>
-          <input ref={searchInputRef} type='text' id='search' name='search' />
-        </fieldset>
-        <button>Search</button>
-      </form>
+      <SearchHeroesForm callback={searchHeroes} />
       {loading && <Loader />}
       <Loader loading={loading} />
       {isError && <p className='text-red-500'>Houston, we have a problem: {error}</p>}

@@ -21,6 +21,11 @@ const Layout = () => {
               Search
             </NavLink>
           </li>
+          <li>
+            <NavLink className={getActiveClass} to='/battle'>
+              Battle
+            </NavLink>
+          </li>
         </ul>
       </nav>
       <Outlet />

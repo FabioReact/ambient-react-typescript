@@ -38,4 +38,4 @@ const useSearchHeroes = () => {
   }
 }
 
-		export { useSearchHeroes }
+export { useSearchHeroes }
