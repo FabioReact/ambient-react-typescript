@@ -7,12 +7,14 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 import Home from './pages/Home'
+import Search from './pages/Search'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route index element={<Home />} />
       <Route path='heroes' element={<Heroes />} />
+      <Route path='search' element={<Search />} />
     </Route>,
   ),
 )

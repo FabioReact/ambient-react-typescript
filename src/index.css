@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+h1 {
+	@apply uppercase text-5xl text-center my-8 tracking-widest font-thin
+}

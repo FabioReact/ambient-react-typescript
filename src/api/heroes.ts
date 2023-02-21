@@ -12,3 +12,15 @@ export const getHeroes = (letter?: string): Promise<Hero[] | undefined> => {
       console.error(err)
     })
 }
+
+export const searchHeroesByName = (name: string): Promise<Hero[] | undefined> => {
+  const query = `?name_like=${name}`
+  return fetcher
+    .get(`http://localhost:4000/heroes${query}`)
+    .then((data) => {
+      return data
+    })
+    .catch((err) => {
+      console.error(err)
+    })
+}

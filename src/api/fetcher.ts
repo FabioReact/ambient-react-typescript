@@ -1,6 +1,8 @@
+import axios from 'axios'
+
 const fetcher = {
   get(url: string) {
-    return fetch(url).then((response) => response.json())
+    return axios.get(url).then((response) => response.data)
   },
 }
 
