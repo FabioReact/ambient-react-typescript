@@ -31,6 +31,11 @@ const Layout = () => {
               Login
             </NavLink>
           </li>
+          <li>
+            <NavLink className={getActiveClass} to='/register'>
+              Register
+            </NavLink>
+          </li>
         </ul>
       </nav>
       <Outlet />
