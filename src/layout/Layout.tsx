@@ -26,6 +26,11 @@ const Layout = () => {
               Battle
             </NavLink>
           </li>
+          <li>
+            <NavLink className={getActiveClass} to='/login'>
+              Login
+            </NavLink>
+          </li>
         </ul>
       </nav>
       <Outlet />

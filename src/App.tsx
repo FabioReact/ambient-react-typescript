@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Search from './pages/Search'
 import Battle from './pages/Battle'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Login from './pages/Login'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route path='heroes' element={<Heroes />} />
       <Route path='search' element={<Search />} />
       <Route path='battle' element={<Battle />} />
+      <Route path='login' element={<Login />} />
     </Route>,
   ),
 )
