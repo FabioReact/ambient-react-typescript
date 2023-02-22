@@ -2,6 +2,7 @@ import { Outlet, NavLink } from 'react-router-dom'
 
 const Layout = () => {
   const getActiveClass = ({ isActive }: { isActive: boolean }) => (isActive ? 'text-red-600' : '')
+  console.log('Render Layout')
   return (
     <>
       <nav>
@@ -24,6 +25,11 @@ const Layout = () => {
           <li>
             <NavLink className={getActiveClass} to='/battle'>
               Battle
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className={getActiveClass} to='/cities'>
+              Cities
             </NavLink>
           </li>
           <li>
