@@ -12,6 +12,9 @@ import Battle from './pages/Battle'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import AuthContext from './context/auth-context'
+import Profile from './pages/Profile'
+import { useState } from 'react'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +23,7 @@ const router = createBrowserRouter(
       <Route path='heroes' element={<Heroes />} />
       <Route path='search' element={<Search />} />
       <Route path='battle' element={<Battle />} />
+      <Route path='profile' element={<Profile />} />
       <Route path='login' element={<Login />} />
       <Route path='register' element={<Register />} />
     </Route>,
@@ -29,10 +33,18 @@ const router = createBrowserRouter(
 const client = new QueryClient()
 
 function App() {
+  const [accessToken, setAccessToken] = useState('')
   return (
-    <QueryClientProvider client={client}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <AuthContext.Provider
+      value={{
+        accessToken,
+        setAccessToken,
+      }}
+    >
+      <QueryClientProvider client={client}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AuthContext.Provider>
   )
 }
 

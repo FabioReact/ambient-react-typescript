@@ -1,4 +1,9 @@
+import { useMutation } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { login, UserRequest } from '../api/auth'
+import { useAuthContext } from '../context/auth-context'
 
 type Inputs = {
   email: string
@@ -11,9 +16,28 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+  const { mutate, data } = useMutation({
+    mutationFn: (user: UserRequest) => login(user),
+  })
+  const { accessToken, setAccessToken } = useAuthContext()
+  const onSubmit: SubmitHandler<Inputs> = (formData) => {
+    mutate(formData)
+  }
+  const navigate = useNavigate()
 
-  console.log(errors)
+  useEffect(() => {
+    if (data) {
+      setAccessToken(data.data.accessToken)
+    }
+  }, [data])
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate('/profile')
+    }
+  }, [accessToken])
+
+  console.log(data)
 
   return (
     <section>
