@@ -1,8 +1,7 @@
 import { useRef } from 'react'
 
 type SearchHeroesFormProps = {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  callback: Function
+  callback: (name: string) => void
 }
 
 const SearchHeroesForm = ({ callback }: SearchHeroesFormProps) => {
@@ -10,8 +9,7 @@ const SearchHeroesForm = ({ callback }: SearchHeroesFormProps) => {
 
   const onSubmitHandler = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    // Optional chaining
-    callback(searchInputRef.current?.value)
+    if (searchInputRef.current) callback(searchInputRef.current?.value)
   }
 
   return (

@@ -33,6 +33,7 @@ const Register = () => {
 
   console.log(data)
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit: SubmitHandler<Inputs> = ({ passwordConfirmation, ...data }) => {
     console.log(data)
     mutate(data)

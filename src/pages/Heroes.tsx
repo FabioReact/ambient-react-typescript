@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
-import { getHeroes } from '../api/heroes'
+import { useEffect, useRef } from 'react'
 import HeroCard from '../components/HeroCard'
 import Heading from '../Heading'
-import { Hero } from '../types/hero'
+import { useLazyGetHeroesByLetterQuery } from '../redux/api'
 
 const arrayOfLetters: string[] = []
 for (let i = 0; i < 26; i++) {
@@ -10,14 +9,12 @@ for (let i = 0; i < 26; i++) {
 }
 
 const Heroes = () => {
-  const [heroes, setHeroes] = useState<Hero[]>([])
   const mounted = useRef(false)
+  const [getHeroes, { data: heroes }] = useLazyGetHeroesByLetterQuery()
 
   useEffect(() => {
     console.log('Premier rendu de HeroesPage')
-    getHeroes('A').then((data) => {
-      if (data) setHeroes(data)
-    })
+    getHeroes('A')
     return () => {
       console.log('Avant destruction - tableau de dependance vide')
     }
@@ -35,9 +32,7 @@ const Heroes = () => {
   }, [heroes])
 
   const onClickHandler = (letter?: string) => {
-    getHeroes(letter).then((data) => {
-      if (data) setHeroes(data)
-    })
+    if (letter) getHeroes(letter)
   }
 
   return (
@@ -52,7 +47,7 @@ const Heroes = () => {
         ))}
       </ul>
       <div className='flex justify-center flex-wrap gap-4'>
-        {heroes.map((hero) => (
+        {heroes?.map((hero) => (
           <HeroCard key={hero.id} hero={hero} />
         ))}
       </div>

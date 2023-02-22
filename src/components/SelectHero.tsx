@@ -1,6 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import { searchHeroesByName } from '../api/heroes'
+import { useLazyGetHeroesByNameQuery } from '../redux/api'
 import { Hero } from '../types/hero'
 import HeroCard from './HeroCard'
 import HeroLabel from './HeroLabel'
@@ -10,21 +9,17 @@ import SearchHeroesForm from './SearchHeroesForm'
 type SelectHeroProps = {
   label?: string
   // eslint-disable-next-line @typescript-eslint/ban-types
-  onSelect: Function
+  onSelect: (hero: Hero | undefined) => void
   hero: Hero | undefined
 }
 
 const SelectHero = ({ onSelect, hero, label = 'Player' }: SelectHeroProps) => {
   const [heroName, setHeroName] = useState('')
 
-  const { data, isLoading, isFetching, refetch } = useQuery({
-    queryKey: ['searchHeroesByName', heroName],
-    queryFn: () => searchHeroesByName(heroName),
-    enabled: Boolean(heroName),
-  })
+  const [searchHeroes, { data, isLoading, isFetching }] = useLazyGetHeroesByNameQuery()
 
   useEffect(() => {
-    if (heroName) refetch()
+    if (heroName) searchHeroes(heroName)
   }, [heroName])
 
   const onSubmitHandler = (name: string) => {

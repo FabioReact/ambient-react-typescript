@@ -1,20 +1,19 @@
-import { useRef } from 'react'
 import HeroCard from '../components/HeroCard'
 import Loader from '../components/Loader'
 import SearchHeroesForm from '../components/SearchHeroesForm'
 import Heading from '../Heading'
-import { useSearchHeroes } from '../hooks/useSearchHeroes'
+import { useLazyGetHeroesByNameQuery } from '../redux/api'
 
 const Search = () => {
-  const { loading, heroes, error, isError, searchHeroes } = useSearchHeroes()
+  const [searchHeroes, { isLoading, data: heroes, isError }] = useLazyGetHeroesByNameQuery()
 
   return (
     <section>
       <Heading>Search</Heading>
       <SearchHeroesForm callback={searchHeroes} />
-      {loading && <Loader />}
-      <Loader loading={loading} />
-      {isError && <p className='text-red-500'>Houston, we have a problem: {error}</p>}
+      {isLoading && <Loader />}
+      <Loader loading={isLoading} />
+      {isError && <p className='text-red-500'>Houston, we have a problem</p>}
       <div className='flex justify-center flex-wrap gap-4'>
         {heroes?.length === 0 && <p>No hero found</p>}
         {heroes?.map((hero) => (

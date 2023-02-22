@@ -2,7 +2,7 @@ type HeroLabelProps = {
   id: string
   name: string
   // eslint-disable-next-line @typescript-eslint/ban-types
-  onClick?: Function
+  onClick?: (id: string) => void
 }
 
 const HeroLabel = ({ id, name, onClick = () => null }: HeroLabelProps) => {
